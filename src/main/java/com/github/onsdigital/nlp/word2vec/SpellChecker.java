@@ -43,7 +43,7 @@ public class SpellChecker {
         }
     }
 
-    private final Integer getRank(String key) {
+    public final Integer getRank(String key) {
         // Use inverse of rank as proxy of probability.
         // Returns '0' if word not in vocabulary
         return this.dictionary.containsKey(key) ? -1 * this.dictionary.get(key) : 0;
