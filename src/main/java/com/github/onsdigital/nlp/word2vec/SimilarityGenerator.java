@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Simple utility class for computing lists of synonyms and their scores using word2vec
  * @author sullid (David Sullivan) on 21/02/2018
- * @project babbage
+ * @project dp-word-utils
  */
 public class SimilarityGenerator {
 
