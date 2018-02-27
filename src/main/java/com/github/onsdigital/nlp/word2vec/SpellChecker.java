@@ -43,12 +43,6 @@ public class SpellChecker {
         }
     }
 
-    public final Integer getRank(String key) {
-        // Use inverse of rank as proxy of probability.
-        // Returns '0' if word not in vocabulary
-        return this.dictionary.containsKey(key) ? -1 * this.dictionary.get(key) : 0;
-    }
-
     private final Stream<String> edits1(final String word){
         Stream<String> deletes    = IntStream.range(0, word.length())  .mapToObj((i) -> word.substring(0, i) + word.substring(i + 1));
         Stream<String> replaces   = IntStream.range(0, word.length())  .mapToObj((i)->i).flatMap( (i) -> "abcdefghijklmnopqrstuvwxyz".chars().mapToObj( (c) ->  word.substring(0,i) + (char)c + word.substring(i+1) )  );
@@ -61,6 +55,12 @@ public class SpellChecker {
         return words.filter( (word) -> this.dictionary.containsKey(word) );
     }
 
+    public final Integer getRank(String key) {
+        // Use inverse of rank as proxy of probability.
+        // Returns '0' if word not in vocabulary
+        return this.dictionary.containsKey(key) ? -1 * this.dictionary.get(key) : 0;
+    }
+
     public final String correct(String word){
         Optional<String> e1 = known(edits1(word)).max(Comparator.comparingInt(a -> this.getRank(a)));
         if(e1.isPresent()) {
@@ -68,6 +68,10 @@ public class SpellChecker {
         }
         Optional<String> e2 = known(edits1(word).map(this::edits1).flatMap((x)->x)).max(Comparator.comparingInt(a -> this.getRank(a)));
         return (e2.orElse(word));
+    }
+
+    public final boolean inVocabulary(String key) {
+        return this.dictionary.containsKey(key);
     }
 
 }
