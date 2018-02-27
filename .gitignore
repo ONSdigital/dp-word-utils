@@ -1,2 +1,3 @@
 .idea/
 target/
+src/main/resources/word2vec/text8_ft.vec.gz

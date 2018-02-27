@@ -82,10 +82,8 @@ public class Word2VecHelper {
             this.weight = weight;
         }
 
-        public String getFilename() {
-            // Combine with word2vec direc
-            return Paths.get(Configuration.WORD_EMBEDDING.WORD2VEC_DIRECTORY,
-                    this.filename).toString();
+        public String getModelFilename() {
+            return this.filename;
         }
 
         public double getWeight() {
