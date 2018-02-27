@@ -22,7 +22,8 @@ public class Configuration {
 
     private static Float defaultFloatIfNotExists(String key, Float defaultValue) {
         try {
-            return Float.parseFloat(getProperty(key));
+            String property = getProperty(key);
+            return property == null ? defaultValue : Float.parseFloat(getProperty(key));
         } catch (Exception e) {
             LOGGER.error(String.format("Unable to parse property %s=%s to int.", key, getProperty(key)));
             return defaultValue;
