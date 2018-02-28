@@ -17,6 +17,6 @@ public interface VectorModel {
 
     String getModelFilename();
 
-    double getWeight();
+    float getWeight();
 
 }

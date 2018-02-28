@@ -43,7 +43,7 @@ public class SimilarityGenerator {
 
         // Populate map with scores
         for (String similarTerm : similarTerms) {
-            similarityMap.put(similarTerm, this.word2Vec.similarity(term, similarTerm));
+            similarityMap.put(similarTerm, this.word2Vec.similarity(term, similarTerm) * this.model.getWeight());
         }
 
         return similarityMap;

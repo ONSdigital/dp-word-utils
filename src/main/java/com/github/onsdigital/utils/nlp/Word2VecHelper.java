@@ -71,13 +71,13 @@ public class Word2VecHelper {
         ONS_FT("ons_ft.vec.gz");
 
         private String filename;
-        private double weight = 1.0d;
+        private float weight = 1.0f;
 
         ONSModel(String filename) {
             this.filename = filename;
         }
 
-        ONSModel(String filename, double weight) {
+        ONSModel(String filename, float weight) {
             this.filename = filename;
             this.weight = weight;
         }
@@ -86,7 +86,7 @@ public class Word2VecHelper {
             return this.filename;
         }
 
-        public double getWeight() {
+        public float getWeight() {
             return weight;
         }
     }
