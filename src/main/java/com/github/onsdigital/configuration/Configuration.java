@@ -33,32 +33,17 @@ public class Configuration {
     public static class WORD_EMBEDDING {
 
         private static final String WORD2VEC_DIRECTORY_KEY = "WORD2VEC_DIRECTORY";
-        private static final String NUMBER_OF_SIMILAR_WORDS_KEY = "NUMBER_OF_SIMILAR_WORDS";
         private static final String DELIMITER_KEY = "WORD2VEC_DELIMITER";
-        private static final String NUM_GRAMS_KEY = "NGRAMS_SIMILARITY";
-        private static final String CONFIDENCE_THRESHOLD_KEY = "CONFIDENCE_THRESHOLD";
 
         public static final String WORD2VEC_DIRECTORY;
-        public static final Integer NUMBER_OF_SIMILAR_WORDS;
         public static final String DELIMITER;
-        public static final Integer NUM_GRAMS;
-        public static final Float CONFIDENCE_THRESHOLD;
 
         static {
             WORD2VEC_DIRECTORY = defaultIfNotExists(WORD2VEC_DIRECTORY_KEY, "word2vec");
             LOGGER.info(String.format("Using word2vec directory: %s", WORD2VEC_DIRECTORY));
 
-            NUMBER_OF_SIMILAR_WORDS = defaultFloatIfNotExists(NUMBER_OF_SIMILAR_WORDS_KEY, 10.0f).intValue();
-            LOGGER.info(String.format("NUMBER_OF_SIMILAR_WORDS = %d", NUMBER_OF_SIMILAR_WORDS));
-
             DELIMITER = defaultIfNotExists(DELIMITER_KEY, "_");
             LOGGER.info(String.format("Using delimiter: %s", DELIMITER));
-
-            NUM_GRAMS = defaultFloatIfNotExists(NUM_GRAMS_KEY, 3.0f).intValue();
-            LOGGER.info(String.format("Using %d grams", NUM_GRAMS));
-
-            CONFIDENCE_THRESHOLD = defaultFloatIfNotExists(CONFIDENCE_THRESHOLD_KEY, 0.3f);
-            LOGGER.info(String.format("Confidence threshold is %f", CONFIDENCE_THRESHOLD));
         }
 
     }
