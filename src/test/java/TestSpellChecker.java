@@ -1,6 +1,6 @@
 import com.github.onsdigital.nlp.word2vec.SpellChecker;
-import com.github.onsdigital.utils.nlp.VectorModel;
-import com.github.onsdigital.utils.nlp.Word2VecHelper;
+import com.github.onsdigital.utils.nlp.word2vec.Model;
+import com.github.onsdigital.utils.nlp.word2vec.Word2VecHelper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class TestSpellChecker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestSpellChecker.class);
 
-    private static final VectorModel model = Word2VecHelper.ONSModel.ONS_FT;
+    private static final Model model = Word2VecHelper.ONSModel.ONS_FT;
 
     private static final List<String> testWords;
     private static final List<String> correctWords;

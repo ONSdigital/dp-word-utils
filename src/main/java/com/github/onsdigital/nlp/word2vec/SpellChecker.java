@@ -7,8 +7,8 @@
 
 package com.github.onsdigital.nlp.word2vec;
 
-import com.github.onsdigital.utils.nlp.VectorModel;
-import com.github.onsdigital.utils.nlp.Word2VecHelper;
+import com.github.onsdigital.utils.nlp.word2vec.Model;
+import com.github.onsdigital.utils.nlp.word2vec.Word2VecHelper;
 import org.deeplearning4j.models.word2vec.VocabWord;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.models.word2vec.wordstore.VocabCache;
@@ -19,17 +19,19 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * A simple, lightweight, spell checker which uses word2vec models for it's dictionary.
+ * A simple, lightweight, spell checker which uses word2vec models for its dictionary.
  * @author sullid (David Sullivan) on 27/02/2018
  * @project dp-word-utils
  */
 public class SpellChecker {
 
+    private static final String LETTERS = "abcdefghijklmnopqrstuvwxyz";
+
     private Map<String, Integer> dictionary = new HashMap<>();
-    private final VectorModel vectorModel;
+    private final Model vectorModel;
     private final Word2Vec word2Vec;
 
-    public SpellChecker(VectorModel vectorModel) throws IOException {
+    public SpellChecker(Model vectorModel) throws IOException {
         // Load the word2vec model
         this.vectorModel = vectorModel;
         this.word2Vec = Word2VecHelper.getWord2Vec(this.vectorModel);
@@ -45,8 +47,8 @@ public class SpellChecker {
 
     private final Stream<String> edits1(final String word){
         Stream<String> deletes    = IntStream.range(0, word.length())  .mapToObj((i) -> word.substring(0, i) + word.substring(i + 1));
-        Stream<String> replaces   = IntStream.range(0, word.length())  .mapToObj((i)->i).flatMap( (i) -> "abcdefghijklmnopqrstuvwxyz".chars().mapToObj( (c) ->  word.substring(0,i) + (char)c + word.substring(i+1) )  );
-        Stream<String> inserts    = IntStream.range(0, word.length()+1).mapToObj((i)->i).flatMap( (i) -> "abcdefghijklmnopqrstuvwxyz".chars().mapToObj( (c) ->  word.substring(0,i) + (char)c + word.substring(i) )  );
+        Stream<String> replaces   = IntStream.range(0, word.length())  .mapToObj((i)->i).flatMap( (i) -> LETTERS.chars().mapToObj( (c) ->  word.substring(0,i) + (char)c + word.substring(i+1) )  );
+        Stream<String> inserts    = IntStream.range(0, word.length()+1).mapToObj((i)->i).flatMap( (i) -> LETTERS.chars().mapToObj( (c) ->  word.substring(0,i) + (char)c + word.substring(i) )  );
         Stream<String> transposes = IntStream.range(0, word.length()-1).mapToObj((i)-> word.substring(0,i) + word.substring(i+1,i+2) + word.charAt(i) + word.substring(i+2) );
         return Stream.of( deletes,replaces,inserts,transposes ).flatMap((x)->x);
     }

@@ -1,6 +1,5 @@
-package com.github.onsdigital.utils.nlp;
+package com.github.onsdigital.utils.nlp.word2vec;
 
-import com.github.onsdigital.configuration.Configuration;
 import com.github.onsdigital.utils.GZipFile;
 import org.apache.commons.compress.compressors.gzip.GzipUtils;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
@@ -10,7 +9,6 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,9 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Word2VecHelper {
 
-    private static Map<VectorModel, Word2Vec> modelMap = new ConcurrentHashMap<>();
+    private static Map<Model, Word2Vec> modelMap = new ConcurrentHashMap<>();
 
-    private static Word2Vec loadModel(VectorModel model) throws IOException {
+    private static Word2Vec loadModel(Model model) throws IOException {
         // Loads a word2vec model using a *.vec model on disk
         ClassLoader classLoader = Word2VecHelper.class.getClassLoader();
         URL fileUrl = classLoader.getResource(model.getFilename());
@@ -45,7 +43,7 @@ public class Word2VecHelper {
         return word2vec;
     }
 
-    public static void init(VectorModel model) throws Exception {
+    public static void init(Model model) throws Exception {
         if (!modelMap.containsKey(model)) {
             Word2Vec word2Vec = loadModel(model);
 
@@ -55,19 +53,19 @@ public class Word2VecHelper {
         }
     }
 
-    public static Word2Vec setModelUtils(VectorModel model, ModelUtils modelUtils) {
+    public static Word2Vec setModelUtils(Model model, ModelUtils modelUtils) {
         modelMap.get(model).setModelUtils(modelUtils);
         return modelMap.get(model);
     }
 
-    public static Word2Vec getWord2Vec(VectorModel model) throws IOException {
+    public static Word2Vec getWord2Vec(Model model) throws IOException {
         if (!modelMap.containsKey(model)) {
             modelMap.put(model, loadModel(model));
         }
         return modelMap.get(model);
     }
 
-    public enum ONSModel implements VectorModel {
+    public enum ONSModel implements Model {
         ONS_FT("ons_ft.vec.gz");
 
         private String filename;

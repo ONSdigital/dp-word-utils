@@ -1,5 +1,5 @@
-import com.github.onsdigital.utils.nlp.VectorModel;
-import com.github.onsdigital.utils.nlp.Word2VecHelper;
+import com.github.onsdigital.utils.nlp.word2vec.Model;
+import com.github.onsdigital.utils.nlp.word2vec.Word2VecHelper;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class TestWord2VecHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TestWord2VecHelper.class);
 
-    private static final VectorModel model = Word2VecHelper.ONSModel.ONS_FT;
+    private static final Model model = Word2VecHelper.ONSModel.ONS_FT;
 
     @Test
     public void testModelLoad() {
